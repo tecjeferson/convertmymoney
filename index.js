@@ -3,6 +3,10 @@ const app = express()
 const path = require('path')
 const convert = require('./lib/convert')
 
+
+
+const port = process.env.PORT || 3000
+
 app.set('view engine', 'ejs')
 //Path para criar o caminho correto em diferentes sistemas operacionais
 app.set('views', path.join(__dirname, 'views'))
@@ -34,7 +38,7 @@ app.get('/cotacao', (req, res) => {
     }
 })
 
-app.listen(3000, err => {
+app.listen(port, err => {
     if (err) {
         console.log("The server could not starts")
     } else {
