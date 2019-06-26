@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const convert = require('./lib/convert')
+const apiBCB = require('./lib/api.bcb')
 
 
 
@@ -13,8 +14,11 @@ app.set('views', path.join(__dirname, 'views'))
 //Habilita o acesso a pasta public com o 'path' para fazer o caminho correto em diferentes OS.
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/', (req, res) => {
-    res.render('home')
+app.get('/', async (req, res) => {
+    const cotacao = await apiBCB.getCotacao()
+    res.render('home', {
+        cotacao
+    })
 })
 app.get('/cotacao', (req, res) => {
     //extraindo os valores do formulario atraves dos inputs names e usando o req.query
